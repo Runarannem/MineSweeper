@@ -1,0 +1,70 @@
+@@startuml
+interface gameInterface {
+    +void initGameBoard()
+    +int getNumAdjacentMines(int row, int col)
+    +int numRevealedNonMineCells()
+    +boolean isCellRevealed(int row, int col)
+    +void revealCell(int row, int col)
+    +void revealAdjacentCells(int row, int col)
+    +void flag(int row, int col)
+    +int getBoardState(int row, int col)
+    +int getBoardValue(int row, int col)
+    +boolean getIsMine(int row, int col)
+    +boolean isGameWon()
+    +boolean isGameLost()
+}
+
+class MinesweeperGame implements gameInterface {
+    +{static}int UNREVEALED_STATE = -2
+    +{static}int FLAGGED_STATE = -3
+    -int numRows
+    -int numCols
+    -int numMines
+    -int numFlags
+    -boolean gameWon
+    -boolean gameLost
+    -int[][] gameBoardState
+    -int[][] gameBoardValue
+    -boolean[][] isMine
+    -boolean[][] revealedCells
+    +MinesweeperGame(int numRows, int numCols, int numMines)
+    +void initGameBoard()
+    +int getNumAdjacentMines(int row, int col)
+    +int numRevealedNonMineCells()
+    +boolean isCellRevealed(int row, int col)
+    +void revealCell(int row, int col)
+    +void revealAdjacentCells(int row, int col)
+    +void flag(int row, int col)
+    +int getBoardState(int row, int col)
+    +int getBoardValue(int row, int col)
+    +boolean getIsMine(int row, int col)
+    +boolean isGameWon()
+    +boolean isGameLost()
+}
+
+class FileIO {
+    +{static}int readWinsFromFile(String filename)
+    +{static}int readLossesFromFile(String filename)
+    +{static}void writeToFile(int wins, int losses, String filename)
+}
+
+class MinesweeperController {
+    -GridPane gameGrid
+    -Label timeLabel
+    -Label mineLabel
+    -Label statusLabel
+    -Label totalWinsLabel
+    -Label totalLossesLabel
+    -Button newGameMenuItem
+    -MinesweeperGame game
+    -Button[][] buttonGrid
+    +void initMineSweeper()
+    +void handleNewGameMenuItemClick()
+    +void updateBoard()
+    +void updateStatusLabel()
+    +void handleRightClick(int row, int col)
+}
+MinesweeperController -> MinesweeperGame : uses
+MinesweeperGame -> gameInterface : implements
+MinesweeperGame -> FileIO : uses
+@@enduml
